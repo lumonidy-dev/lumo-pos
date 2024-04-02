@@ -1,5 +1,7 @@
 <!-- PasswordField.svelte -->
 <script>
+	import { IoIosEye, IoIosEyeOff } from 'svelte-icons/io';
+	
     export let password = "";
     let showPassword = false;
 
@@ -20,7 +22,11 @@
         placeholder="Contraseña"
     />
     <button on:click={togglePasswordVisibility}>
-        {showPassword ? "Ocultar" : "Mostrar"}
+		{#if showPassword}
+			<IoIosEyeOff />
+		{:else}
+			<IoIosEye />
+		{/if}
     </button>
 </div>
 
@@ -50,7 +56,18 @@
         font-weight: 500;
     }
 
+
     input::placeholder {
         color: white;
     }
+
+	button {
+		border: none;
+		background-color: transparent;
+		color: white;
+		font-size: 1.2rem;
+		text-align: center;
+		height: 2.5rem;
+		cursor: pointer;
+	}
 </style>
