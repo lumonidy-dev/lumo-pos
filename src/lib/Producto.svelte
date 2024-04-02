@@ -5,7 +5,7 @@
     };
 </script>
 
-<div class="producto glass-secondary br-20">
+<div class="producto glass-secondary br-20 w-100">
     <img class="" src={producto.url} alt={producto.nombre} />
     <div class="hr w-80"></div>
     <p class="nombre">{producto.nombre}</p>
@@ -15,13 +15,8 @@
     @import "src/mixins.scss";
     .producto {
         position: relative;
-        display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 100%;
-        // @include padding(20px);
-        margin-right: 250px;
     }
 
     img {

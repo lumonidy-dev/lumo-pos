@@ -38,7 +38,7 @@
 		padding: 0.25rem;
 	}
 	.navbar {
-		position: fixed;
+		position: relative;
 		top: 0;
 		left: 0;
 		width: 100%;
