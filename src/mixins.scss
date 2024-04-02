@@ -1,0 +1,51 @@
+@mixin padding($size, $direction: null) {
+    @if $direction ==null {
+        padding: $size;
+        padding-left: $size;
+        padding-right: $size;
+        padding-top: $size;
+        padding-bottom: $size;
+    }
+
+    @else {
+        @if $direction =='x' {
+            padding-left: $size;
+            padding-right: $size;
+        }
+
+        @else if $direction =='y' {
+            padding-top: $size;
+            padding-bottom: $size;
+        }
+
+        @else {
+            padding-#{$direction}: $size;
+        }
+    }
+}
+
+@mixin margin($size, $direction: null) {
+    @if $direction ==null {
+        margin: $size;
+        margin-left: $size;
+        margin-right: $size;
+        margin-top: $size;
+        margin-bottom: $size;
+    }
+
+    @else {
+        @if $direction =='x' {
+            margin-left: $size;
+            margin-right: $size;
+        }
+
+        @else if $direction =='y' {
+            margin-top: $size;
+            margin-bottom: $size;
+        }
+
+        @else {
+            margin-#{$direction}: $size;
+        }
+    }
+}
