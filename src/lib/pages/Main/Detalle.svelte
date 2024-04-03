@@ -1,4 +1,7 @@
 <script>
+    import FaEdit from 'svelte-icons/fa/FaEdit.svelte'
+    import FaTrash from 'svelte-icons/fa/FaTrash.svelte'
+
     let pedidos = [
         { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
         { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
@@ -32,10 +35,14 @@
             </thead>
             <tbody>
                 {#each pedidos as pedido}
-                    <tr>
+                    <tr class="fila-pedido">
                         <td>{pedido.cantidad}</td>
                         <td>{pedido.nombre}</td>
                         <td>${pedido.precio}</td>
+                        <div class="acciones">
+                            <button class="editar" on:click={() => editarPedido(pedido)}><FaEdit class="icono"/></button>
+                            <button class="eliminar" on:click={() => eliminarPedido(pedido)}><FaTrash class="icono"/></button>
+                        </div>
                     </tr>
                 {/each}
             </tbody>
@@ -91,8 +98,44 @@
         border-bottom: 1px solid #fff; // Añadir borde inferior a los encabezados
     }
 
-    tr{
-        
+    .fila-pedido {
+        position: relative;
+
+        &:hover .acciones {
+            display: flex;
+            height: 100%;
+        }
+    }
+
+    .acciones {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0; 
+        display: none;
+        align-items: center;
+        justify-content: space-between;
+
+        .eliminar, .editar {
+            flex: 1;
+            margin: 0;
+            @include padding(.5rem)
+        }
+
+        .eliminar {
+            background-color: red;
+            color: white;
+            height:100%;
+            border-radius: 0;
+        }
+
+        .editar {
+            background-color: blue;
+            color: white;
+            height:100%;
+            border-radius: 0;
+        }
     }
 
     .total {
@@ -111,6 +154,7 @@
             color: #fff;
         }
     }
+
 
     @include boton(#45a049);
 </style>
