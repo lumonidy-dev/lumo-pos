@@ -2,8 +2,7 @@
 
 <script>
     export let tipos = [];
-
-    console.log(tipos);
+    export let selected;
 
     function Text(tipo) {
         // Verificar si el tipo es un objeto válido
@@ -31,7 +30,16 @@
         }
     }
 
-    let selected = null;
+    function handleRadioChange(event) {
+        selected = event.target.value;
+
+        // Disparar un evento personalizado
+        dispatchEvent(
+            new CustomEvent("selectionChange", {
+                detail: selected,
+            }),
+        );
+    }
 </script>
 
 <!-- Lista de productos -->
@@ -54,6 +62,8 @@
                             id={tipo.nombre}
                             name="tipo"
                             value={tipo.nombre}
+                            bind:group={selected}
+                            on:change={handleRadioChange}
                         />
                     </div>
                 </li>

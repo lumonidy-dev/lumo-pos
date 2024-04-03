@@ -64,14 +64,14 @@ export const CategoriasData = {
     }
 };
 
-export const BebidasData = {
+export const Bebidas = {
     nombre: "Bebidas",
     desc: "¿Quieres agregar bebidas?",
     tipos: CategoriasData.Bebidas.tipos,
-}
+};
 
-export const ExtrasData = {
+export const Extras = {
     nombre: "Extras",
     desc: "¿Algún acompañamiento?",
     tipos: CategoriasData.Fritos.tipos,
-}
+};

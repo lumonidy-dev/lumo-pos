@@ -1,7 +1,7 @@
 <script>
 	import NavBar from "../../NavBar.svelte";
 	import Categorias from "./Categorias.svelte";
-	import { CategoriasData, BebidasData } from "./data.js";
+	import { CategoriasData } from "./data.js";
 
 	// Itera sobre las categorías y las convierte en un array de objetos compatible con el componente Categorias
 	let categorias = Object.keys(CategoriasData).map((key) => ({

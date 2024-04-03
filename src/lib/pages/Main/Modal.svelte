@@ -1,7 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import RadioContainer from "./Modal/RadioContainer.svelte";
-    import { BebidasData, ExtrasData } from "./data.js";
+    import ModalBody from "./Modal/ModalBody.svelte";
 
     export let categoria;
     export let onClose;
@@ -30,16 +29,6 @@
         if (event.target.classList.contains("modal-background")) {
             onClose();
         }
-    }
-
-    function Text(tipo) {
-        return tipo.ingredientes
-            ? `${tipo.nombre} (${tipo.ingredientes.join(", ")})`
-            : tipo.nombre;
-    }
-
-    function Price(tipo) {
-        return `$${tipo.precio}`;
     }
 
     onMount(() => {
@@ -77,23 +66,8 @@
                 role="button"
                 aria-label="Close">&times;</span
             >
-            <div class="d-flex f-col w-100 h-100">
-                <div class="left w-50">
-                    <div class="imagen w-80 h-100 shadow-left">
-                        <h2>{nombre}</h2>
-                        <img src={url} alt={nombre} />
-                    </div>
-                    <button class="glass-primary br-20"
-                        >Agregar al carrito</button
-                    >
-                </div>
-                <div class="right w-50 h-100 overflow">
-                    <RadioContainer {categoria} />
-                    <div class="hr-black"></div>
-                    <RadioContainer categoria={BebidasData} />
-                    <div class="hr-black"></div>
-                    <RadioContainer categoria={ExtrasData} />
-                </div>
+            <div class="d-flex f-col w-100 h-100 align-c">
+                <ModalBody {categoria} />
             </div>
         </div>
     </div>
@@ -101,23 +75,6 @@
 
 <style lang="scss">
     @import "src/mixins.scss";
-    .left {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .imagen {
-        @include padding(1rem, x);
-        @include padding(4rem, r);
-    }
-    .left,
-    .right {
-        height: 100%;
-    }
-    img {
-        width: 100%;
-        border-radius: 10px;
-    }
 
     .modal-background {
         position: fixed;
@@ -158,19 +115,5 @@
 
     .close:hover {
         color: red;
-    }
-
-    button {
-        margin-top: 20px;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        background-color: #4caf50;
-        color: white;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
     }
 </style>
