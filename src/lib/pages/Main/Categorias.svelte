@@ -17,7 +17,7 @@
     }
 </script>
 
-<div class="categorias">
+<div class="glass-secondary br-20 categorias">
     <div class="categorias-container">
         {#each categoriasRenderizados as categoria, index}
             {#if Object.keys(categoria).length > 0}
