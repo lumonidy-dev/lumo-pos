@@ -25,7 +25,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>Cantidad</th>
+                    <th>Cant.</th>
                     <th>Nombre</th>
                     <th>Precio</th>
                 </tr>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
     </div>
-    <div class="total w-60 br-20">
+    <div class="total w-60 br-20 glass-dark">
         <p>
             ${calcularTotal()}
         </p>
@@ -91,11 +91,16 @@
         border-bottom: 1px solid #fff; // Añadir borde inferior a los encabezados
     }
 
+    tr{
+        
+    }
+
     .total {
-        background-color: black;
         margin-top: 1rem;
         padding: 1rem;
-
+        -webkit-box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
+        -moz-box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
+        box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
         p {
             @include media-query(desktop) {
                 font-size: 2.6rem;
@@ -103,7 +108,7 @@
             text-align: center;
             margin: 0;
             font-size: 1.5rem;
-            color: green;
+            color: #fff;
         }
     }
 
