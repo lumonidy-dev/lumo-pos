@@ -17,7 +17,7 @@
 <div class="detalle glass-secondary w-100 br-20">
     <h2>Detalle del Pedido</h2>
 
-    <div class="cuadro-pedido">
+    <div class="cuadro-pedido glass-dark">
         <ul>
             {#each pedidos as pedido}
                 <li>
@@ -42,12 +42,10 @@
     }
 
     .cuadro-pedido {
-        background-color: #ffffff;
-        color: black;
+        color: #fff;
         border-radius: 10px;
         padding: 1px;
         width: 90%;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     }
 
     ul {
