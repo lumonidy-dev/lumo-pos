@@ -1,16 +1,4 @@
 <script>
-    import Modal from "./Modal.svelte";
-
-    let isModalOpen = false;
-
-    function openModal() {
-        isModalOpen = true;
-    }
-
-    function closeModal() {
-        isModalOpen = false;
-    }
-
     export let categoria = {
         nombre: "Categoría Falsa",
         url: "https://m.media-amazon.com/images/I/71Ruy+XEKOS._AC_SL1500_.jpg",
@@ -31,34 +19,19 @@
         ],
     };
 
-    // Función handleClick que imprime el nombre de la categoría del clickeado
     function handleClick() {
-        openModal();
-    }
-
-    // Función handleKeyDown que imprime el nombre de la categoría del clickeado
-    function handleKeyDown(event) {
-        if (event.key === "Enter") {
-            event.stopPropagation();
-            event.preventDefault();
-            handleClick();
-        }
+        console.log("Categoría:", categoria);
     }
 </script>
 
 <button
     class="categoria glass-secondary br-20 w-100"
-    on:click={handleClick}
-    on:keydown|stopPropagation={handleKeyDown}
     tabindex="0"
+    on:click={handleClick}
 >
     <img src={categoria.url} alt={categoria.nombre} />
     <p class="glass-dark etiqueta w-100 br-20-bottom">{categoria.nombre}</p>
 </button>
-
-{#if isModalOpen}
-    <Modal {categoria} onClose={closeModal} />
-{/if}
 
 <style lang="scss">
     @import "src/mixins.scss";

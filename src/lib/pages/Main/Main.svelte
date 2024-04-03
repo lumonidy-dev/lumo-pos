@@ -8,7 +8,7 @@
 		nombre: key,
 		...CategoriasData[key],
 	}));
-	let multiplicador = 15;
+	// let multiplicador = 15;
 	let name = "Toro POS";
 </script>
 
