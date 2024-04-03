@@ -1,7 +1,7 @@
 <script>
 	import Logo from "/logo.webp";
-	import PasswordField from "../PasswordField.svelte";
-	import SelectField from "../SelectField.svelte";
+	import PasswordField from "./PasswordField.svelte";
+	import SelectField from "./SelectField.svelte";
 
 	// Opciones para el campo de opciones
 	const options = [
