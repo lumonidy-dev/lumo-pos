@@ -75,3 +75,27 @@
         }
     }
 }
+
+@mixin media-query($device) {
+    @if $device == desktop {
+        @media only screen and (min-width: 1200px) {
+            @content;
+        }
+    }
+
+    @else if $device == tablet {
+        @media only screen and (min-width: 768px) and (min-width: 768px) {
+            @content;
+        }
+    }
+
+    @else if $device == mobile {
+        @media only screen and (min-width: 576px) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "Dispositivo no reconocido. Por favor, elige entre 'desktop', 'tablet' o 'mobile'.";
+    }
+}

@@ -1,8 +1,8 @@
 <script>
     let pedidos = [
-        { nombre: "Completo Italiano", cantidad: 1, precio: 1500 },
-        { nombre: "Coca Cola Lata", cantidad: 1, precio: 1000 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 2100 },
+        { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
+        { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
+        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
     ];
 
     function calcularTotal() {
@@ -26,7 +26,11 @@
             {/each}
         </ul>
     </div>
-    <div class="total">Total: ${calcularTotal()}</div>
+    <div class="total w-60 br-20">
+        <p>
+            ${calcularTotal()}
+        </p>
+    </div>
 
     <button on:click={terminarPedido}>Terminar Pedido</button>
 </div>
@@ -39,6 +43,7 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        @include padding(1rem);
     }
 
     .cuadro-pedido {
@@ -64,10 +69,15 @@
 }
 }
     .total {
-        margin-top: 10px;
+        background-color: black;
+        margin-top:1rem;
+        padding: 1rem;
+        p{
+                margin: 0;
+                font-size: 2.6rem;
+                color: green;
+        }
     }
 
     @include boton(#45a049);
-
-
 </style>
