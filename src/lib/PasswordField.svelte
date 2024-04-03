@@ -1,7 +1,7 @@
 <!-- PasswordField.svelte -->
 <script>
-	import { IoIosEye, IoIosEyeOff } from 'svelte-icons/io';
-	
+    import { IoIosEye, IoIosEyeOff } from "svelte-icons/io";
+
     export let password = "";
     let showPassword = false;
 
@@ -14,7 +14,7 @@
     };
 </script>
 
-<div class="field">
+<div class="field glass-secondary">
     <input
         type={showPassword ? "text" : "password"}
         value={password}
@@ -22,11 +22,11 @@
         placeholder="Contraseña"
     />
     <button on:click={togglePasswordVisibility}>
-		{#if showPassword}
-			<IoIosEyeOff />
-		{:else}
-			<IoIosEye />
-		{/if}
+        {#if showPassword}
+            <IoIosEyeOff />
+        {:else}
+            <IoIosEye />
+        {/if}
     </button>
 </div>
 
@@ -36,12 +36,6 @@
         padding: 10px;
         width: 200px;
         margin-bottom: 10px;
-        background: linear-gradient(
-            209.36deg,
-            rgba(255, 255, 255, 0.5) 0%,
-            rgba(255, 255, 255, 0) 100%
-        );
-        filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.25));
         display: flex;
     }
 
@@ -56,18 +50,17 @@
         font-weight: 500;
     }
 
-
     input::placeholder {
         color: white;
     }
 
-	button {
-		border: none;
-		background-color: transparent;
-		color: white;
-		font-size: 1.2rem;
-		text-align: center;
-		height: 2.5rem;
-		cursor: pointer;
-	}
+    button {
+        border: none;
+        background-color: transparent;
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
+        height: 2.5rem;
+        cursor: pointer;
+    }
 </style>

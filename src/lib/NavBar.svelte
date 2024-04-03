@@ -6,7 +6,7 @@
 	export let name = "Mi POS";
 </script>
 
-<nav class="navbar">
+<nav class="navbar glass">
 	<div class="navbar-container">
 		<div class="brand">{name}</div>
 		<ul>
@@ -38,15 +38,7 @@
 		padding: 0.25rem;
 	}
 	.navbar {
-		background: linear-gradient(
-			209.36deg,
-			rgba(255, 255, 255, 0.5) 0%,
-			rgba(255, 255, 255, 0) 100%
-		);
-		box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.25);
-		backdrop-filter: blur(10px);
-		color: white;
-		position: fixed;
+		position: relative;
 		top: 0;
 		left: 0;
 		width: 100%;
