@@ -69,8 +69,7 @@
         margin-top: 10px;
     }
 
-    button{
-        @include boton(green);
-    }
+    @include boton(#45a049);
+
 
 </style>

@@ -58,7 +58,9 @@
     }
 }
 
-@mixin boton($background-color){
+@mixin boton($background-color) {
+    $darkened-color: darken($background-color, 10%);
+    
     button {
         margin-top: 20px;
         border: none;
@@ -67,11 +69,9 @@
         background-color: $background-color;
         color: white;
         cursor: pointer;
-        
+
         &:hover {
-            background-color: $background-color;
+            background-color: $darkened-color;
         }
     }
-
-
 }
