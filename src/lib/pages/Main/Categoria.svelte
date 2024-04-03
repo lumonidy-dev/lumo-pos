@@ -1,15 +1,4 @@
 <script>
-    import Modal from "./Modal.svelte";
-
-    let isModalOpen = false;
-
-    function openModal() {
-        isModalOpen = true;
-    }
-
-    function closeModal() {
-        isModalOpen = false;
-    }
 
     export let categoria = {
         nombre: "Categoría Falsa",
@@ -33,7 +22,7 @@
 
     // Función handleClick que imprime el nombre de la categoría del clickeado
     function handleClick() {
-        openModal();
+        console.log(categoria);
     }
 
     // Función handleKeyDown que imprime el nombre de la categoría del clickeado
@@ -56,9 +45,6 @@
     <p class="glass-dark etiqueta w-100 br-20-bottom">{categoria.nombre}</p>
 </button>
 
-{#if isModalOpen}
-    <Modal {categoria} onClose={closeModal} />
-{/if}
 
 <style lang="scss">
     @import "src/mixins.scss";
