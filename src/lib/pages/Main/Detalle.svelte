@@ -72,9 +72,13 @@
         background-color: black;
         margin-top:1rem;
         padding: 1rem;
-        p{
+        p{      
+                @include media-query(desktop){
+                    font-size: 2.6rem;
+                }
+                text-align:center;
                 margin: 0;
-                font-size: 2.6rem;
+                font-size: 1.5rem;
                 color: green;
         }
     }
