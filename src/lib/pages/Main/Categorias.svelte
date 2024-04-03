@@ -1,11 +1,16 @@
-<!-- categorias.svelte -->
+<!-- Categorias.svelte -->
 <script>
     import Categoria from "./Categoria.svelte";
+    import SubCategoria from "./SubCategoria.svelte";
 
     export let categorias = null;
     export let multiplicador = 1;
 
     let categoriasRenderizados = [];
+
+    // Estado para manejar si se está mostrando una categoría o no
+    let mostrarTipos = false;
+    let categoriaSeleccionada = {};
 
     if (categorias !== null) {
         categoriasRenderizados = categorias;
@@ -15,17 +20,35 @@
             () => ({}),
         );
     }
+
+    // Función para manejar el clic en una categoría
+    function handleClickCategoria(categoria) {
+        mostrarTipos = true;
+        categoriaSeleccionada = categoria;
+    }
+
+    // Función para manejar el regreso a las categorías
+    function handleClickRegresar() {
+        console.log("Regreso a Categorias");
+        mostrarTipos = false;
+    }
 </script>
 
-<div class="glass-secondary br-20 categorias">
+<div class="glass-secondary br-20 categorias vw-50">
     <div class="categorias-container">
-        {#each categoriasRenderizados as categoria, index}
-            {#if Object.keys(categoria).length > 0}
-                <Categoria {categoria} />
-            {:else}
-                <Categoria />
-            {/if}
-        {/each}
+        {#if mostrarTipos}
+            <!-- Mostrar tipos si se seleccionó una categoría -->
+            <SubCategoria {categoriaSeleccionada} {handleClickRegresar} />
+        {:else}
+            <!-- Mostrar las categorías -->
+            {#each categoriasRenderizados as categoria, index}
+                {#if Object.keys(categoria).length > 0}
+                    <Categoria {categoria} handleClick={handleClickCategoria} />
+                {:else}
+                    <Categoria />
+                {/if}
+            {/each}
+        {/if}
     </div>
 </div>
 

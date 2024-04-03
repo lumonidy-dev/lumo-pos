@@ -14,6 +14,22 @@
     filter: drop-shadow(0px 20px 40px rgba(0, 0, 0, 0.25));
 }
 
+.gap-1 {
+    gap: 1rem;
+}
+
+.gap-2 {
+    gap: 2rem;
+}
+
+.gap-3 {
+    gap: 3rem;
+}
+
+.gap-4 {
+    gap: 4rem;
+}
+
 .glass-dark {
     background: linear-gradient(209.36deg,
             rgba(0, 0, 0, 0.5) 0%,
@@ -212,6 +228,36 @@
     flex-wrap: wrap;
 }
 
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.ratio16-9 {
+    aspect-ratio: 16/9;
+}
+
+.ratio4-3 {
+    aspect-ratio: 4/3;
+}
+
+.ratio1-1 {
+    aspect-ratio: 1/1;
+}
+
+.ration3-4 {
+    aspect-ratio: 3/4;
+}
+
+.img-cover {
+    object-fit: cover;
+}
+
+.img-contain {
+    object-fit: contain;
+}
+
+
 .just-sb {
     justify-content: space-between;
 }
@@ -236,6 +282,24 @@
     justify-content: center;
 
 }
+
+.fs-s {
+    font-size: small;
+}
+
+.fs-m {
+    font-size: medium;
+}
+
+.fs-l {
+    font-size: large;
+}
+
+.fs-xl {
+    font-size: x-large;
+}
+
+
 
 .fw-b {
     font-weight: bold;
@@ -437,6 +501,10 @@
     box-shadow: inset 0px 0px 50px rgba(0, 0, 0, 0.25);
 }
 
+.border {
+    border: 1px solid #e0e0e070;
+}
+
 .hr {
     height: 2px;
     background-color: #e0e0e070;
@@ -451,22 +519,22 @@
     position: relative;
 }
 
-.m-10{
+.m-10 {
     margin: 10px;
 }
 
-.m-20{
+.m-20 {
     margin: 20px;
 }
 
-.m-30{
+.m-30 {
     margin: 30px;
 }
 
-.m-40{
+.m-40 {
     margin: 40px;
 }
 
-.ml-30{
-    margin-left:30px;
+.ml-30 {
+    margin-left: 30px;
 }

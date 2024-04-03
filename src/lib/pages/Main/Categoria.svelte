@@ -1,5 +1,5 @@
+<!-- Categoria.svelte -->
 <script>
-
     export let categoria = {
         nombre: "Categoría Falsa",
         url: "https://m.media-amazon.com/images/I/71Ruy+XEKOS._AC_SL1500_.jpg",
@@ -20,10 +20,9 @@
         ],
     };
 
-    // Función handleClick que imprime el nombre de la categoría del clickeado
-    function handleClick() {
-        console.log(categoria);
-    }
+    export let handleClick = (categoria) => {
+        console.log("Clic en Categorias", categoria);
+    };
 
     // Función handleKeyDown que imprime el nombre de la categoría del clickeado
     function handleKeyDown(event) {
@@ -37,7 +36,7 @@
 
 <button
     class="categoria glass-secondary br-20 w-100"
-    on:click={handleClick}
+    on:click={() => handleClick(categoria)} 
     on:keydown|stopPropagation={handleKeyDown}
     tabindex="0"
 >
