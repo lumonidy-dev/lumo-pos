@@ -39,18 +39,9 @@
     <RightSide {categoria} />
 </div>
 
-<style>
+<style lang="scss">
+    @import "src/mixins.scss";
     button {
-        margin-top: 20px;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        background-color: #4caf50;
-        color: white;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
+        @include boton(green)
+        }
 </style>

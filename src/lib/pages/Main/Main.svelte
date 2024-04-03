@@ -2,6 +2,7 @@
 	import NavBar from "../../NavBar.svelte";
 	import Categorias from "./Categorias.svelte";
 	import { CategoriasData } from "./data.js";
+	import Detalle from "./Detalle.svelte";
 
 	// Itera sobre las categorías y las convierte en un array de objetos compatible con el componente Categorias
 	let categorias = Object.keys(CategoriasData).map((key) => ({
@@ -20,10 +21,15 @@
 			<h2>Productos</h2>
 			<Categorias {categorias}></Categorias>
 		</div>
+		<div class="container-detalle w-40 ml-30">
+			<Detalle></Detalle>
+		</div>
 	</div>
 </main>
 
-<style>
+<style lang="scss">
+	@import 'src/mixins.scss'; 
+
 	.container {
 		position: relative;
 		display: flex;
@@ -46,5 +52,11 @@
 		margin: 0;
 		padding: 0;
 		overflow-x: hidden;
+	}
+
+	.container-detalle{
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 </style>
