@@ -18,6 +18,14 @@
             padding-bottom: $size;
         }
 
+        @else if $direction =='l' {
+            padding-left: $size;
+        }
+
+        @else if $direction =='r' {
+            padding-right: $size;
+        }
+
         @else {
             padding-#{$direction}: $size;
         }

@@ -1,31 +1,15 @@
 <script>
 	import NavBar from "../../NavBar.svelte";
-	import Productos from "./Categorias.svelte";
-	let name = "Toro POS";
-	let multiplicador = 35;
+	import Categorias from "./Categorias.svelte";
+	import { CategoriasData, BebidasData } from "./data.js";
 
-	let categorias = [
-		{
-			nombre: "Completos",
-			url: "https://domino.cl/wp-content/uploads/2021/06/Completos.png",
-		},
-		{
-			nombre: "Churrascos",
-			url: "https://churrascoschile.cl/wp-content/uploads/2022/07/CHURRASCO-ITALIANO-churrascoschile-e1658524693675.png",
-		},
-		{
-			nombre: "Pizzas",
-			url: "https://underpizza-image-storage.s3.us-east-2.amazonaws.com/sides/dEcc48jAvLAM5t2KY/0.webp",
-		},
-		{
-			nombre: "Bebidas",
-			url: "https://ossa.elpanzon.cl/wp-content/uploads/2021/03/ElPanzon-Bebidas.png",
-		},
-		{
-			nombre: "Tacos",
-			url: "https://static.vecteezy.com/system/resources/previews/025/067/655/non_2x/tacos-with-ai-generated-free-png.png",
-		},
-	];
+	// Itera sobre las categorías y las convierte en un array de objetos compatible con el componente Categorias
+	let categorias = Object.keys(CategoriasData).map((key) => ({
+		nombre: key,
+		...CategoriasData[key],
+	}));
+	let multiplicador = 15;
+	let name = "Toro POS";
 </script>
 
 <main>
@@ -34,7 +18,7 @@
 	<div class="container">
 		<div class="productos w-50">
 			<h2>Productos</h2>
-			<Productos {categorias}></Productos>
+			<Categorias {categorias}></Categorias>
 		</div>
 	</div>
 </main>
