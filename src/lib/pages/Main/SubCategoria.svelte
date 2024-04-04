@@ -55,7 +55,7 @@
 </script>
 
 <div class="d-flex flex-wrap flex-col w-100 h-100">
-    <div class="h-4r just-se d-flex flex-row align-c gap-md border-bottom">
+    <div class="h-4r just-sa d-flex flex-row align-c gap-md border-bottom">
         <!-- Botón para regresar a la lista de categorías -->
         <button
             class="regresar h-10 fw-b fs-m border-none pos-abs pos-left"
@@ -75,7 +75,7 @@
                 <span class="w-80 fs-2rem txt-l pl-1"
                     >{categoriaSeleccionada.nombre}</span
                 >
-                <span class="w-100 fs-2rem">Total: %{totalSeleccionado}</span>
+                <span class="w-100 fs-m pl-2 fs-xl fw-b">Total: %{totalSeleccionado}</span>
             </div>
         </div>
     </div>
