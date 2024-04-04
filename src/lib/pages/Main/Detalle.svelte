@@ -1,16 +1,24 @@
 <script>
-    import FaEdit from 'svelte-icons/fa/FaEdit.svelte'
-    import FaTrash from 'svelte-icons/fa/FaTrash.svelte'
+    import FaEdit from "svelte-icons/fa/FaEdit.svelte";
+    import FaTrash from "svelte-icons/fa/FaTrash.svelte";
 
     let pedidos = [
         { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
         { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
-        { nombre: "Papas Fritas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
     ];
+
+    function editarPedido(pedido) {
+        // Aquí podrías implementar la lógica para editar un pedido
+    }
+
+    function eliminarPedido(pedido) {
+        pedidos = pedidos.filter((p) => p !== pedido);
+    }
 
     function calcularTotal() {
         return pedidos.reduce((total, pedido) => total + pedido.precio, 0);
@@ -24,13 +32,13 @@
 <div class="detalle glass-secondary w-100 br-20">
     <h2>Detalle del Pedido</h2>
 
-    <div class="cuadro-pedido glass-dark">
+    <div class="cuadro-pedido w-90 glass-dark">
         <table>
             <thead>
                 <tr>
-                    <th>Cant.</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
+                    <th class="w-10">Cant.</th>
+                    <th>Prod.</th>
+                    <th class="w-20">Valor</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,18 +48,27 @@
                         <td>{pedido.nombre}</td>
                         <td>${pedido.precio}</td>
                         <div class="acciones">
-                            <button class="editar" on:click={() => editarPedido(pedido)}><FaEdit class="icono"/></button>
-                            <button class="eliminar" on:click={() => eliminarPedido(pedido)}><FaTrash class="icono"/></button>
+                            <button
+                                title="Editar"
+                                class="editar"
+                                on:click={() => editarPedido(pedido)}
+                                ><FaEdit /></button
+                            >
+                            <button
+                                title="Eliminar"
+                                class="eliminar"
+                                on:click={() => eliminarPedido(pedido)}
+                                ><FaTrash /></button
+                            >
                         </div>
                     </tr>
                 {/each}
             </tbody>
         </table>
     </div>
-    <div class="total w-60 br-20 glass-dark">
-        <p>
-            ${calcularTotal()}
-        </p>
+    <div class="container-total w-60 br-20">
+        <h3>Total</h3>
+        <p>${calcularTotal()}</p>
     </div>
 
     <button on:click={terminarPedido}>Terminar Pedido</button>
@@ -71,8 +88,6 @@
     .cuadro-pedido {
         color: #fff;
         border-radius: 10px;
-        padding: 1px;
-        width: 90%;
         overflow-y: auto;
         max-height: 15rem;
     }
@@ -112,49 +127,69 @@
         top: 0;
         left: 0;
         bottom: 0;
-        right: 0; 
+        right: 0;
         display: none;
         align-items: center;
         justify-content: space-between;
 
-        .eliminar, .editar {
+        .eliminar,
+        .editar {
             flex: 1;
             margin: 0;
-            @include padding(.5rem)
+            @include padding(0.5rem);
         }
 
         .eliminar {
-            background-color: red;
+            background: rgb(241, 55, 60);
+            background: radial-gradient(
+                circle,
+                rgba(241, 55, 60, 1) 0%,
+                rgba(162, 23, 23, 1) 100%
+            );
             color: white;
-            height:100%;
+            height: 100%;
             border-radius: 0;
         }
 
         .editar {
-            background-color: blue;
+            background: rgb(47, 91, 255);
+            background: radial-gradient(
+                circle,
+                rgba(47, 91, 255, 1) 0%,
+                rgba(52, 48, 231, 1) 100%
+            );
             color: white;
-            height:100%;
+            height: 100%;
             border-radius: 0;
         }
     }
 
-    .total {
+    .container-total {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         margin-top: 1rem;
-        padding: 1rem;
-        -webkit-box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
-        -moz-box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
-        box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 0.75);
+        min-width: 8rem;
+        background: rgb(246, 191, 18);
+        background: linear-gradient(
+            90deg,
+            rgba(246, 191, 18, 0.7980535279805353) 0%,
+            rgba(235, 146, 6, 0.8) 100%
+        );
+        @include padding(1rem);
         p {
-            @include media-query(desktop) {
-                font-size: 2.6rem;
+                font-weight: 700;
+                margin: 0;
+                font-size: 2rem;
+                color: #fff;
             }
-            text-align: center;
+        h3 {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1rem;
             margin: 0;
-            font-size: 1.5rem;
-            color: #fff;
         }
     }
-
 
     @include boton(#45a049);
 </style>
