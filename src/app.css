@@ -27,8 +27,11 @@ h1 {
   line-height: 1.1;
 }
 
+
+h2,
 p,
-img {
+img,
+span {
   -webkit-user-drag: none;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -45,17 +48,20 @@ img {
 
 /* Estilos para la scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #333;
+  background: #dddddd4f;
+
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #555;
+
+  background: #cccbcbb9;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: #ffffff;
+
 }

@@ -35,15 +35,16 @@
 </script>
 
 <button
-    class="categoria glass-secondary br-20 w-100"
-    on:click={() => handleClick(categoria)} 
+    class="categoria glass-secondary br-20 w-100 h-100 ratio1-1"
+    on:click={() => handleClick(categoria)}
     on:keydown|stopPropagation={handleKeyDown}
     tabindex="0"
 >
     <img src={categoria.url} alt={categoria.nombre} />
-    <p class="glass-dark etiqueta w-100 br-20-bottom">{categoria.nombre}</p>
+    <p class="glass-xs etiqueta w-100 br-20-bottom">
+        {categoria.nombre}
+    </p>
 </button>
-
 
 <style lang="scss">
     @import "src/mixins.scss";
@@ -57,7 +58,6 @@
         transition:
             box-shadow 0.3s ease,
             transform 0.3s ease;
-        aspect-ratio: 3/4;
     }
 
     img {

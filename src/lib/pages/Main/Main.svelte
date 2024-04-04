@@ -55,7 +55,7 @@
 		overflow-x: hidden;
 	}
 
-	.container-detalle{
+	.container-detalle {
 		display: flex;
 		justify-content: center;
 		align-items: center;

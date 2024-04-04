@@ -6,7 +6,8 @@ export const CategoriasData = {
             { nombre: "Italiano", precio: 1500, ingredientes: ["Palta", "Tomate", "Mayonesa"] },
             { nombre: "Dinámico", precio: 2000, ingredientes: ["Palta", "Tomate", "Mayonesa", "Chucrut"] },
             { nombre: "A lo pobre", precio: 2500, ingredientes: ["Huevo", "Cebolla"] },
-            { nombre: "Chacarero", precio: 3000, ingredientes: ["Porotos verdes", "Carne", "Tomate"] }
+            { nombre: "Chacarero", precio: 3000, ingredientes: ["Porotos verdes", "Carne", "Tomate"] },
+
         ]
     },
     "Churrascos": {

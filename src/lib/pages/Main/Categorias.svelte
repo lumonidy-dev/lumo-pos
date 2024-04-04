@@ -29,17 +29,16 @@
 
     // Función para manejar el regreso a las categorías
     function handleClickRegresar() {
-        console.log("Regreso a Categorias");
         mostrarTipos = false;
     }
 </script>
 
-<div class="glass-secondary br-20 categorias vw-50">
-    <div class="categorias-container">
-        {#if mostrarTipos}
-            <!-- Mostrar tipos si se seleccionó una categoría -->
-            <SubCategoria {categoriaSeleccionada} {handleClickRegresar} />
-        {:else}
+<div class="glass-secondary br-20 vw-50 vh-80 overflow-h">
+    {#if mostrarTipos}
+        <!-- Mostrar tipos si se seleccionó una categoría -->
+        <SubCategoria {categoriaSeleccionada} {handleClickRegresar} />
+    {:else}
+        <div class="grid-respo-xs px-2 py-1 overflow h-90">
             <!-- Mostrar las categorías -->
             {#each categoriasRenderizados as categoria, index}
                 {#if Object.keys(categoria).length > 0}
@@ -48,28 +47,10 @@
                     <Categoria />
                 {/if}
             {/each}
-        {/if}
-    </div>
+        </div>
+    {/if}
 </div>
 
 <style lang="scss">
     @import "src/mixins.scss";
-
-    .categorias {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-    }
-
-    .categorias-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        grid-gap: 2rem;
-        padding: 2rem;
-        height: 100%;
-        overflow-y: auto;
-        padding-bottom: 8rem;
-    }
 </style>
