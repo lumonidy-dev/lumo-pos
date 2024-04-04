@@ -37,6 +37,12 @@
         0,
     );
 
+    let total = 0;
+
+    totalSeleccionado.subscribe((value) => {
+        total = formatComma(value.toFixed(0));
+    });
+
     // Manejar la selección al incrementar un producto
     function handleIncrementar(event) {
         const producto = event.detail.tipo;
@@ -75,7 +81,7 @@
                 <span class="w-80 fs-2rem txt-l pl-1"
                     >{categoriaSeleccionada.nombre}</span
                 >
-                <span class="w-100 fs-2rem">Total: %{totalSeleccionado}</span>
+                <span class="w-20 fs-2rem txt-l pr-1">${total}</span>
             </div>
         </div>
     </div>
