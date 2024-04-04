@@ -5,23 +5,37 @@
     let pedidos = [
         { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
         { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
+        { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
         { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
         { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
         { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
         { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
+        { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
         { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
     ];
+
+    let total = calcularTotal();
+
+    function calcularTotal() {
+        return pedidos.reduce((total, pedido) => total + pedido.precio, 0);
+    }
+
+    function formatearPrecio(precio) {
+        return precio.toLocaleString('es-CL');
+    }
 
     function editarPedido(pedido) {
         // Aquí podrías implementar la lógica para editar un pedido
     }
 
     function eliminarPedido(pedido) {
+        const precioEliminado = pedido.precio;
         pedidos = pedidos.filter((p) => p !== pedido);
-    }
-
-    function calcularTotal() {
-        return pedidos.reduce((total, pedido) => total + pedido.precio, 0);
+        // Restar el precio del pedido eliminado del total actual
+        total -= precioEliminado;
     }
 
     function terminarPedido() {
@@ -30,14 +44,12 @@
 </script>
 
 <div class="detalle glass-secondary w-100 br-20">
-    <h2>Detalle del Pedido</h2>
-
     <div class="cuadro-pedido w-90 glass-dark">
         <table>
             <thead>
                 <tr>
                     <th class="w-10">Cant.</th>
-                    <th>Prod.</th>
+                    <th>Producto</th>
                     <th class="w-20">Valor</th>
                 </tr>
             </thead>
@@ -46,7 +58,7 @@
                     <tr class="fila-pedido">
                         <td>{pedido.cantidad}</td>
                         <td>{pedido.nombre}</td>
-                        <td>${pedido.precio}</td>
+                        <td class="precio">${formatearPrecio(pedido.precio)}</td>
                         <div class="acciones">
                             <button
                                 title="Editar"
@@ -68,7 +80,7 @@
     </div>
     <div class="container-total w-60 br-20">
         <h3>Total</h3>
-        <p>${calcularTotal()}</p>
+        <p>${formatearPrecio(total)}</p>
     </div>
 
     <button on:click={terminarPedido}>Terminar Pedido</button>
@@ -78,18 +90,19 @@
     @import "src/mixins.scss";
 
     .detalle {
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        @include padding(1rem);
+        @include padding(2rem, y);
     }
 
     .cuadro-pedido {
         color: #fff;
         border-radius: 10px;
         overflow-y: auto;
-        max-height: 15rem;
+        max-height: 18rem;
     }
 
     table {
@@ -98,14 +111,14 @@
     }
 
     th,
-    td {
+    td{
         padding: 8px;
         text-align: left;
         border-right: 1px solid #fff; // Añadir línea separadora a la derecha de cada celda
     }
 
     th:last-child,
-    td:last-child {
+    .precio{
         border-right: none; // Eliminar la línea separadora en la última columna
     }
 
@@ -137,6 +150,12 @@
             flex: 1;
             margin: 0;
             @include padding(0.5rem);
+            transition: all 0.2s;
+
+            &:hover {
+                filter: brightness(0.8);
+                @include padding(0.4rem);
+            }
         }
 
         .eliminar {
@@ -168,7 +187,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top: 1rem;
+        margin-top: 1.4rem;
         min-width: 8rem;
         background: rgb(246, 191, 18);
         background: linear-gradient(
@@ -178,11 +197,11 @@
         );
         @include padding(1rem);
         p {
-                font-weight: 700;
-                margin: 0;
-                font-size: 2rem;
-                color: #fff;
-            }
+            font-weight: 700;
+            margin: 0;
+            font-size: 2rem;
+            color: #fff;
+        }
         h3 {
             text-transform: uppercase;
             font-weight: 700;
