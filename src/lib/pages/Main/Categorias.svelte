@@ -1,27 +1,21 @@
 <!-- Categorias.svelte -->
 <script>
+    import { onMount } from "svelte";
+
     import Categoria from "./Categoria.svelte";
     import SubCategoria from "./SubCategoria.svelte";
 
     export let categorias = null;
     export let multiplicador = 1;
 
-    let categoriasRenderizados = [];
-
     // Estado para manejar si se está mostrando una categoría o no
     let mostrarTipos = false;
     let categoriaSeleccionada = {};
 
-    if (categorias !== null) {
-        categoriasRenderizados = categorias;
-    } else {
-        categoriasRenderizados = Array.from(
-            { length: multiplicador },
-            () => ({}),
-        );
-    }
+    // Inicialización de categoríasRenderizados usando la montura
+    let categoriasRenderizados = [];
 
-    // Función para manejar el clic en una categoría
+    // Lógica para manejar el clic en una categoría
     function handleClickCategoria(categoria) {
         mostrarTipos = true;
         categoriaSeleccionada = categoria;
@@ -31,6 +25,19 @@
     function handleClickRegresar() {
         mostrarTipos = false;
     }
+
+    // Lógica para inicializar el componente y derivar datos computados
+    onMount(() => {
+        // Inicializar categoríasRenderizados
+        if (categorias !== null) {
+            categoriasRenderizados = categorias;
+        } else {
+            categoriasRenderizados = Array.from(
+                { length: multiplicador },
+                () => ({}),
+            );
+        }
+    });
 </script>
 
 <div class="glass-secondary br-20 vw-50 vh-80 overflow-h">

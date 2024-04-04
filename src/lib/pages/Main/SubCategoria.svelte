@@ -1,7 +1,8 @@
 <script>
     import { IoIosArrowDropleftCircle, IoIosCart } from "svelte-icons/io/";
-    import { Bebidas, Extras } from "./data.js";
+    import { writable, derived } from "svelte/store";
     import ListItem from "./ListItem.svelte";
+    import { Bebidas, Extras } from "./data.js";
 
     export let categoriaSeleccionada;
     export let handleClickRegresar;
@@ -9,7 +10,7 @@
     let tipos = categoriaSeleccionada.tipos;
 
     // Estado de la selección
-    let seleccion = [];
+    let seleccion = writable([]);
 
     function formatComma(str) {
         return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -23,47 +24,38 @@
         }
     }
 
-    function getTotalSeleccionado() {
-        let total = 0;
-
-        // Sumar el precio de cada producto seleccionado
-        total += seleccion.reduce((acc, curr) => acc + curr.precio, 0);
-
-        return `$${formatComma(total.toFixed(0))}`;
-    }
-
-    let totalSeleccionado;
-
-    $: {
-        totalSeleccionado = getTotalSeleccionado();
-    }
-
-    function handleCarrito() {
-        console.log("Seleccion", seleccion);
-    }
+    // Calcula el total seleccionado
+    const totalSeleccionado = derived(
+        seleccion,
+        ($seleccion, set) => {
+            let total = 0;
+            $seleccion.forEach((item) => {
+                total += item.precio;
+            });
+            set(total);
+        },
+        0,
+    );
 
     // Manejar la selección al incrementar un producto
     function handleIncrementar(event) {
         const producto = event.detail.tipo;
-        seleccion.push(producto);
-        // Actualizar el total seleccionado
-        totalSeleccionado = getTotalSeleccionado();
+        seleccion.update((items) => [...items, producto]);
     }
 
     // Manejar la selección al decrementar un producto
     function handleDecrementar(event) {
         const producto = event.detail.tipo;
-        const index = seleccion.indexOf(producto);
-        if (index !== -1) {
-            seleccion.splice(index, 1);
-        }
-        // Actualizar el total seleccionado
-        totalSeleccionado = getTotalSeleccionado();
+        seleccion.update((items) => items.filter((item) => item !== producto));
+    }
+
+    function handleCarrito() {
+        console.log("Seleccion", $seleccion);
     }
 </script>
 
 <div class="d-flex flex-wrap flex-col w-100 h-100">
-    <div class=" h-4r just-se d-flex flex-row align-c gap-md border-bottom">
+    <div class="h-4r just-se d-flex flex-row align-c gap-md border-bottom">
         <!-- Botón para regresar a la lista de categorías -->
         <button
             class="regresar h-10 fw-b fs-m border-none pos-abs pos-left"
@@ -79,13 +71,11 @@
                 src={categoriaSeleccionada.url}
                 alt={categoriaSeleccionada.nombre}
             />
-            <div class=" d-flex align-c h-100 fs-3rem just-sb just-sa w-100">
-                <span class=" w-80 fs-2rem txt-l pl-1">
-                    {categoriaSeleccionada.nombre}
-                </span>
-                <span class=" w-100 fs-2rem">
-                    Total: {totalSeleccionado}
-                </span>
+            <div class="d-flex align-c h-100 fs-3rem just-sb just-sa w-100">
+                <span class="w-80 fs-2rem txt-l pl-1"
+                    >{categoriaSeleccionada.nombre}</span
+                >
+                <span class="w-100 fs-2rem">Total: %{totalSeleccionado}</span>
             </div>
         </div>
     </div>
@@ -105,15 +95,11 @@
                     </ul>
                 </div>
                 <button
-                    class=" w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20"
+                    class="w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20"
                     on:click={handleCarrito}
                 >
-                    <!-- svelte-ignore a11y-no-static-element-interactions -->
-                    <!-- svelte-ignore a11y-click-events-have-key-events -->
                     <div class="d-flex flex-row just-sa align-c">
-                        <div class="icono">
-                            <IoIosCart />
-                        </div>
+                        <div class="icono"><IoIosCart /></div>
                         <span> Agregar al carrito</span>
                     </div>
                 </button>
