@@ -8,7 +8,7 @@
   // Calcula el total de manera reactiva
   $: total = $carrito.reduce(
     (acc, item) => acc + item.tipo.precio * item.cantidad,
-    0,
+    0
   );
 
   function editarPedido(pedido) {
@@ -25,7 +25,7 @@
 </script>
 
 <div class="detalle glass-secondary w-100 br-20">
-  <div class="cuadro-pedido w-90 glass-dark">
+  <div class="cuadro-pedido w-90 h-90 glass-dark">
     <table>
       <thead>
         <tr>
@@ -74,7 +74,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     @include padding(2rem, y);
   }
