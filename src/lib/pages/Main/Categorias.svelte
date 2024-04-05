@@ -5,6 +5,8 @@
     import Categoria from "./Categoria.svelte";
     import SubCategoria from "./SubCategoria.svelte";
 
+    import { selecciones } from "./store.js";
+
     export let categorias = null;
     export let multiplicador = 1;
 
@@ -15,6 +17,8 @@
     // Inicialización de categoríasRenderizados usando la montura
     let categoriasRenderizados = [];
 
+    // Estado para manejar la selección de productos
+    let seleccion = selecciones;
 
     // Lógica para manejar el clic en una categoría
     function handleClickCategoria(categoria) {
@@ -24,6 +28,8 @@
 
     // Función para manejar el regreso a las categorías
     function handleClickRegresar() {
+        // limpiar la selección
+        seleccion.set([]);
         mostrarTipos = false;
     }
 
@@ -39,9 +45,6 @@
             );
         }
     });
-
-   
-
 </script>
 
 <div class="glass-secondary br-20 vw-50 vh-80 overflow-h">

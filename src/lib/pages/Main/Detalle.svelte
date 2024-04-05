@@ -1,55 +1,22 @@
 <script>
   import FaEdit from "svelte-icons/fa/FaEdit.svelte";
   import FaTrash from "svelte-icons/fa/FaTrash.svelte";
-  import { selecciones } from "./store.js";
+  import { formatearPrecio } from "../../utils.js";
+  import { carrito } from "./store.js";
 
   let total = 0;
-  // Sumar los precios de los productos seleccionados
-  $: {
-    total = 0;
-    $selecciones.forEach((seleccion) => {
-      total += seleccion.precio;
-    });
+  // Calcula el total de manera reactiva
+  $: total = $carrito.reduce(
+    (acc, item) => acc + item.tipo.precio * item.cantidad,
+    0,
+  );
+
+  function editarPedido(pedido) {
+    // todo: Implementar lógica para editar un pedido
   }
 
-  function formatearPrecio(precio) {
-    return precio.toLocaleString("es-CL");
-  }
-
-  // funcion para filtrar los productos seleccionados
-  function seleccionesFiltradas(selecciones) {
-    const seleccionFiltrada = {};
-
-    selecciones.forEach((seleccion) => {
-      if (seleccion.nombre in seleccionFiltrada) {
-        seleccionFiltrada[seleccion.nombre].cantidad++;
-        seleccionFiltrada[seleccion.nombre].precio += seleccion.precio;
-      } else {
-        seleccionFiltrada[seleccion.nombre] = { ...seleccion, cantidad: 1 };
-      }
-    });
-
-    // Convertir el objeto a una lista de productos seleccionados filtrados
-    const resultado = Object.values(seleccionFiltrada);
-
-    return resultado;
-  }
-
-  function editarPedido(pedido) {}
-
-  // Variable local para almacenar las selecciones
-  let seleccionesActuales = [];
-
-  // Suscribirse a cambios en la variable reactiva selecciones
-  selecciones.subscribe((value) => {
-    seleccionesActuales = value;
-  });
-
-  function eliminarPedido(seleccion) {
-    // falta arreglar que se actualize el estado del subcategoria
-    selecciones.update((selecciones) =>
-      selecciones.filter((s) => s !== seleccion)
-    );
+  function eliminarPedido(pedido) {
+    carrito.update(($carrito) => $carrito.filter((item) => item !== pedido));
   }
 
   function terminarPedido() {
@@ -68,23 +35,25 @@
         </tr>
       </thead>
       <tbody>
-        {#each seleccionesFiltradas(seleccionesActuales) as seleccion}
+        {#each $carrito as item (item.tipo.nombre)}
           <tr class="fila-pedido">
-            <td>{seleccion.cantidad}</td>
-            <td>{seleccion.nombre}</td>
-            <td class="precio">${formatearPrecio(seleccion.precio)}</td>
-            <div class="acciones">
+            <td>{item.cantidad}</td>
+            <td>{item.tipo.nombre}</td>
+            <td class="precio"
+              >{formatearPrecio(item.tipo.precio * item.cantidad)}</td
+            >
+            <td class="acciones">
               <button
                 title="Editar"
                 class="editar"
-                on:click={() => editarPedido()}><FaEdit /></button
+                on:click={() => editarPedido(item)}><FaEdit /></button
               >
               <button
                 title="Eliminar"
                 class="eliminar"
-                on:click={() => eliminarPedido(seleccion)}><FaTrash /></button
+                on:click={() => eliminarPedido(item)}><FaTrash /></button
               >
-            </div>
+            </td>
           </tr>
         {/each}
       </tbody>
@@ -92,7 +61,7 @@
   </div>
   <div class="container-total w-60 br-20">
     <h3>Total</h3>
-    <p>${formatearPrecio(total)}</p>
+    <p>{formatearPrecio(total)}</p>
   </div>
 
   <button on:click={terminarPedido}>Terminar Pedido</button>

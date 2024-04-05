@@ -1,11 +1,10 @@
 <script>
-    import { IoIosArrowDropleftCircle, IoIosCart } from "svelte-icons/io/";
-    import { writable, derived } from "svelte/store";
+    import { IoIosArrowDropleftCircle, IoIosCart } from "svelte-icons/io";
+    import { formatearPrecio } from "../../utils";
+    import { derived } from "svelte/store";
     import ListItem from "./ListItem.svelte";
     import { Bebidas, Extras } from "./data.js";
-    import { selecciones } from "./store.js";
-
-
+    import { selecciones, carrito } from "./store.js";
 
     export let categoriaSeleccionada;
     export let handleClickRegresar;
@@ -14,15 +13,7 @@
 
     // Estado de la selección
     let seleccion = selecciones;
-
-    
-
-
-
-
-    function formatComma(str) {
-        return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+    let carro = carrito;
 
     function handleKeyDown(event) {
         if (event.key === "Enter") {
@@ -32,15 +23,14 @@
         }
     }
 
-    // Calcula el total seleccionado
     const totalSeleccionado = derived(
         seleccion,
-        ($seleccion, set) => {
+        ($seleccion) => {
             let total = 0;
             $seleccion.forEach((item) => {
-                total += item.precio;
+                total += item.tipo.precio * item.cantidad;
             });
-            set(total);
+            return total;
         },
         0,
     );
@@ -48,27 +38,67 @@
     let total = 0;
 
     totalSeleccionado.subscribe((value) => {
-        total = formatComma(value.toFixed(0));
+        total = formatearPrecio(value.toFixed(0));
     });
 
-    // Manejar la selección al incrementar un producto
     function handleIncrementar(event) {
-        const producto = event.detail.tipo;
-        seleccion.update((items) => [...items, producto]);
+        const { tipo, cantidad } = event.detail;
+        seleccion.update((selecciones) => {
+            const index = selecciones.findIndex((s) => s.tipo === tipo);
+            if (index !== -1) {
+                let seleccionesActualizadas = [...selecciones];
+                seleccionesActualizadas[index] = {
+                    ...seleccionesActualizadas[index],
+                    cantidad,
+                };
+                return seleccionesActualizadas;
+            } else {
+                return [...selecciones, { tipo, cantidad: 1 }];
+            }
+        });
+        // console.log("Incrementar selección:", $selecciones); // Banderas para seguimiento
     }
 
-    // Manejar la selección al decrementar un producto
     function handleDecrementar(event) {
-        const producto = event.detail.tipo;
-        seleccion.update((items) => items.filter((item) => item !== producto));
+        const { tipo, cantidad } = event.detail;
+        seleccion.update((selecciones) => {
+            if (cantidad === 0) {
+                return selecciones.filter((s) => s.tipo !== tipo);
+            } else {
+                const index = selecciones.findIndex((s) => s.tipo === tipo);
+                let seleccionesActualizadas = [...selecciones];
+                seleccionesActualizadas[index] = {
+                    ...seleccionesActualizadas[index],
+                    cantidad,
+                };
+                return seleccionesActualizadas;
+            }
+        });
+        // console.log("Decrementar selección:", $selecciones); // Banderas para seguimiento
     }
 
     function handleCarrito() {
-        
-        const productoSeleccionados = $seleccion;
+        carrito.update(($carrito) => {
+            let carritoActualizado = [...$carrito];
+            $selecciones.forEach((seleccion) => {
+                const indiceExistente = carritoActualizado.findIndex(
+                    (item) => item.tipo.nombre === seleccion.tipo.nombre,
+                );
+                if (indiceExistente !== -1) {
+                    carritoActualizado[indiceExistente].cantidad +=
+                        seleccion.cantidad;
+                } else {
+                    carritoActualizado.push(seleccion);
+                }
+            });
+            return carritoActualizado;
+        });
 
-        console.log(productoSeleccionados);
-        
+        selecciones.set([]);
+
+        // console.log("Selecciones movidas al carrito."); // Banderas para seguimiento
+        handleClickRegresar(); // Volver a la vista anterior o cerrar el modal
+        // console.log("Estado final del carrito:", $carrito); // Estado del carrito después de actualizar
     }
 </script>
 
@@ -113,7 +143,7 @@
                     </ul>
                 </div>
                 <button
-                    class="w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20 "
+                    class="w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20"
                     on:click={handleCarrito}
                 >
                     <div class="d-flex flex-row just-sa align-c">
