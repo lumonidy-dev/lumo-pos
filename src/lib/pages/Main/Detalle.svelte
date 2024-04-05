@@ -20,10 +20,19 @@
     { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
   ];
 
-  let total = calcularTotal();
+  let total1 = calcularTotal();
 
   function calcularTotal() {
     return pedidos.reduce((total, pedido) => total + pedido.precio, 0);
+  }
+
+  let total = 0;
+  // Sumar los precios de los productos seleccionados
+  $: {
+    total = 0;
+    $selecciones.forEach(seleccion => {
+      total += seleccion.precio;
+    });
   }
 
   function formatearPrecio(precio) {
