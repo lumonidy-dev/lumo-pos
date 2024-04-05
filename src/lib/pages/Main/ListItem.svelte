@@ -49,7 +49,7 @@
     </div>
     <div class="w-sm just-se d-flex flex-row align-c w-80">
       <button
-        class="circulo verde incrementar pointer "
+        class="circulo verde incrementar pointer"
         on:click={incrementarContador}
       >
         <span class="fw-b fs-m">+</span>
@@ -86,11 +86,11 @@
   }
 
   .rojo {
-    background-color: #ff0000;
+    background-color: rgba(255, 0, 0, 0.35);
   }
 
   .verde {
-    background-color: #00ff00;
+    background-color: rgba(0, 255, 0, 0.35);
     color: #064206;
   }
 

@@ -3,14 +3,22 @@
     import { writable, derived } from "svelte/store";
     import ListItem from "./ListItem.svelte";
     import { Bebidas, Extras } from "./data.js";
+    import { selecciones } from "./store.js";
+
+
 
     export let categoriaSeleccionada;
     export let handleClickRegresar;
 
-    let tipos = categoriaSeleccionada.tipos;
+    export let tipos = categoriaSeleccionada.tipos;
 
     // Estado de la selección
-    let seleccion = writable([]);
+    let seleccion = selecciones;
+
+    
+
+
+
 
     function formatComma(str) {
         return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -37,6 +45,12 @@
         0,
     );
 
+    let total = 0;
+
+    totalSeleccionado.subscribe((value) => {
+        total = formatComma(value.toFixed(0));
+    });
+
     // Manejar la selección al incrementar un producto
     function handleIncrementar(event) {
         const producto = event.detail.tipo;
@@ -50,7 +64,11 @@
     }
 
     function handleCarrito() {
-        console.log("Seleccion", $seleccion);
+        
+        const productoSeleccionados = $seleccion;
+
+        console.log(productoSeleccionados);
+        
     }
 </script>
 
@@ -75,7 +93,7 @@
                 <span class="w-80 fs-2rem txt-l pl-1"
                     >{categoriaSeleccionada.nombre}</span
                 >
-                <span class="w-100 fs-m pl-2 fs-xl fw-b">Total: %{totalSeleccionado}</span>
+                <span class="w-20 fs-2rem txt-l pr-1">Total: ${total}</span>
             </div>
         </div>
     </div>
@@ -83,7 +101,7 @@
         <div class="d-flex flex-col w-50 h-100">
             <h2 class="fs-l">{categoriaSeleccionada.desc}</h2>
             <div class="d-flex flex-col h-100 align-c gap-1">
-                <div class="overflow h-75">
+                <div class="overflow h-70">
                     <ul class="px-1 d-flex flex-col gap-1">
                         {#each tipos as tipo}
                             <ListItem
@@ -95,7 +113,7 @@
                     </ul>
                 </div>
                 <button
-                    class="w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20"
+                    class="w-80 h-10 border-none btn btn-hover glass fw-b fs-l br-20 "
                     on:click={handleCarrito}
                 >
                     <div class="d-flex flex-row just-sa align-c">

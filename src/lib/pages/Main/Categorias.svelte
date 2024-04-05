@@ -15,6 +15,7 @@
     // Inicialización de categoríasRenderizados usando la montura
     let categoriasRenderizados = [];
 
+
     // Lógica para manejar el clic en una categoría
     function handleClickCategoria(categoria) {
         mostrarTipos = true;
@@ -38,6 +39,9 @@
             );
         }
     });
+
+   
+
 </script>
 
 <div class="glass-secondary br-20 vw-50 vh-80 overflow-h">
