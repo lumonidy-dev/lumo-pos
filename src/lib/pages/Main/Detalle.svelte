@@ -1,42 +1,38 @@
 <script>
-  // @ts-ignore
   import FaEdit from "svelte-icons/fa/FaEdit.svelte";
-  // @ts-ignore
   import FaTrash from "svelte-icons/fa/FaTrash.svelte";
   import { selecciones } from "./store.js";
-
-  let pedidos = [
-    { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
-    { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-    { nombre: "Completo Italiano", cantidad: 1, precio: 12500 },
-    { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
-    { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-    { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
-    { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-    { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
-    { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-    { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
-    { nombre: "Coca Cola Lata", cantidad: 1, precio: 80000 },
-    { nombre: "Papas Medianas", cantidad: 1, precio: 12100 },
-  ];
-
-  let total1 = calcularTotal();
-
-  function calcularTotal() {
-    return pedidos.reduce((total, pedido) => total + pedido.precio, 0);
-  }
 
   let total = 0;
   // Sumar los precios de los productos seleccionados
   $: {
     total = 0;
-    $selecciones.forEach(seleccion => {
+    $selecciones.forEach((seleccion) => {
       total += seleccion.precio;
     });
   }
 
   function formatearPrecio(precio) {
     return precio.toLocaleString("es-CL");
+  }
+
+  // funcion para filtrar los productos seleccionados
+  function seleccionesFiltradas(selecciones) {
+    const seleccionFiltrada = {};
+
+    selecciones.forEach((seleccion) => {
+      if (seleccion.nombre in seleccionFiltrada) {
+        seleccionFiltrada[seleccion.nombre].cantidad++;
+        seleccionFiltrada[seleccion.nombre].precio += seleccion.precio;
+      } else {
+        seleccionFiltrada[seleccion.nombre] = { ...seleccion, cantidad: 1 };
+      }
+    });
+
+    // Convertir el objeto a una lista de productos seleccionados filtrados
+    const resultado = Object.values(seleccionFiltrada);
+
+    return resultado;
   }
 
   function editarPedido(pedido) {}
@@ -49,13 +45,16 @@
     seleccionesActuales = value;
   });
 
-  function eliminarPedido(seleccion) { // falta arreglar que se actualize el estado del subcategoria
+  function eliminarPedido(seleccion) {
+    // falta arreglar que se actualize el estado del subcategoria
     selecciones.update((selecciones) =>
       selecciones.filter((s) => s !== seleccion)
     );
   }
 
-  function terminarPedido() {}
+  function terminarPedido() {
+    console.log();
+  }
 </script>
 
 <div class="detalle glass-secondary w-100 br-20">
@@ -69,7 +68,7 @@
         </tr>
       </thead>
       <tbody>
-        {#each $selecciones as seleccion}
+        {#each seleccionesFiltradas(seleccionesActuales) as seleccion}
           <tr class="fila-pedido">
             <td>{seleccion.cantidad}</td>
             <td>{seleccion.nombre}</td>
