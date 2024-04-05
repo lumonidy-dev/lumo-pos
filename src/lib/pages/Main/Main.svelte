@@ -11,10 +11,6 @@
   }));
   let multiplicador = 15;
   let name = "Toro POS";
-
-
-
-  
 </script>
 
 <main>
@@ -23,11 +19,11 @@
   <div class="container">
     <div class="productos w-60">
       <h2>Productos</h2>
-      <Categorias {categorias} ></Categorias>
+      <Categorias {categorias}></Categorias>
     </div>
     <div class="container-detalle w-40">
       <h2>Pedido</h2>
-      <Detalle />
+      <Detalle></Detalle>
     </div>
   </div>
 </main>
