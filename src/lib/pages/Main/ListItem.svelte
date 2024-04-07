@@ -1,5 +1,6 @@
 <script>
   import { createEventDispatcher } from "svelte";
+  import { formatearPrecio } from "../../utils";
 
   export let tipo;
 
@@ -27,11 +28,7 @@
   }
 
   function getPrice(tipo) {
-    return `$${formatComma(tipo.precio.toFixed(0))}`;
-  }
-
-  function formatComma(str) {
-    return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return formatearPrecio(tipo.precio);
   }
 </script>
 

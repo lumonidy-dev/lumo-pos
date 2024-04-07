@@ -4,7 +4,6 @@
   import { CategoriasData } from "./data.js";
   import Detalle from "./Detalle.svelte";
 
-  // Itera sobre las categorías y las convierte en un array de objetos compatible con el componente Categorias
   let categorias = Object.keys(CategoriasData).map((key) => ({
     nombre: key,
     ...CategoriasData[key],
@@ -15,7 +14,6 @@
 
 <main>
   <NavBar {name}></NavBar>
-
   <div class="container">
     <div class="productos w-60">
       <h2>Productos</h2>
@@ -43,16 +41,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-
-  main {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 99vw;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
   }
 
   .container-detalle {

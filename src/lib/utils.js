@@ -6,5 +6,5 @@ export const formatearPrecio = (precio) => {
 };
 
 const formatComma = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
