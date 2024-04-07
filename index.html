@@ -10,6 +10,17 @@
 
 <body>
   <div id="app"></div>
+  <script>
+    // Cargar el fondo seleccionado previamente al cargar la página
+    window.addEventListener('DOMContentLoaded', () => {
+        const selectedBackground = localStorage.getItem('selectedBackground');
+        if (selectedBackground) {
+            const style = document.createElement('style');
+            style.textContent = `body { background-image: url(${selectedBackground}); }`;
+            document.head.appendChild(style);
+        }
+    });
+</script>
   <script type="module" src="/src/main.js"></script>
   
 </body>
