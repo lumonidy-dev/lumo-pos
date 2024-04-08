@@ -2,9 +2,11 @@
   import FaEdit from "svelte-icons/fa/FaEdit.svelte";
   import FaTrash from "svelte-icons/fa/FaTrash.svelte";
   import { formatearPrecio } from "../../utils.js";
-  import { carrito } from "./store.js";
+  import { carrito,abrirModal,modalContent } from "./store.js";
+
 
   let total = 0;
+  
   // Calcula el total de manera reactiva
   $: total = $carrito.reduce(
     (acc, item) => acc + item.tipo.precio * item.cantidad,
@@ -12,8 +14,14 @@
   );
 
   function editarPedido(pedido) {
-    // todo: Implementar lógica para editar un pedido
+    //abrira un modal para editar el pedido
+    $abrirModal = true;
+    console.log(pedido);
+    //pasar a json el pedido
+    $modalContent = pedido; 
   }
+
+  
 
   function eliminarPedido(pedido) {
     carrito.update(($carrito) => $carrito.filter((item) => item !== pedido));

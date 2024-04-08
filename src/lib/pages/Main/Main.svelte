@@ -3,6 +3,8 @@
   import Categorias from "./Categorias.svelte";
   import { CategoriasData } from "./data.js";
   import Detalle from "./Detalle.svelte";
+  import { abrirModal, modalContent } from "./store";
+  import Modal from "./ModalEditar.svelte";
 
   let categorias = Object.keys(CategoriasData).map((key) => ({
     nombre: key,
@@ -23,6 +25,9 @@
       <h2>Pedido</h2>
       <Detalle></Detalle>
     </div>
+    {#if $abrirModal}
+      <Modal {modalContent}></Modal>
+    {/if}
   </div>
 </main>
 
