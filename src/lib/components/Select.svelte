@@ -7,7 +7,6 @@
     export let selectedOptions = [];
     export let multiple = true;
 
-    $: console.log(selectedOptions);
 
     const dispatch = createEventDispatcher();
 

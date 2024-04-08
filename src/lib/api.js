@@ -37,7 +37,6 @@ export async function createCategoria(categoria) {
 }
 
 export async function createProducto(producto) {
-    console.log(producto)
     const response = await fetch(`${url}/productos`, {
         method: "POST",
         headers: {
@@ -57,6 +56,7 @@ export async function createProducto(producto) {
 }
 
 export async function updateCategoria(categoria) {
+    console.log(categoria);
     const response = await fetch(`${url}/categorias/${categoria.id}`, {
         method: "PUT",
         headers: {

@@ -11,7 +11,6 @@
 
     const producto = {
         nombre: "Sin nombre",
-        desc: "Sin descripción",
         precio: "0",
         ingredientes: [],
         categoria: {
@@ -44,11 +43,9 @@
         const ProductoRequest = {
             nombre:
                 producto.nombre.trim() != "" ? producto.nombre : "Sin nombre",
-            desc:
-                producto.desc.trim() != "" ? producto.desc : "Sin descripción",
             precio: producto.precio,
             ingredientes: producto.ingredientes,
-            categoria: producto.categoria.id,
+            categoria: producto.categoria,
         };
         try {
             await createProducto(ProductoRequest);
@@ -61,6 +58,10 @@
             dispatch("update");
         }
     }
+
+  
+
+   
 </script>
 
 {#if isLoading}
@@ -81,12 +82,7 @@
             placeholder="Nombre del producto"
         />
 
-        <label for="desc">Descripción</label>
-        <textarea
-            id="desc"
-            bind:value={producto.desc}
-            placeholder="Descripción del producto"
-        ></textarea>
+        
 
         <label for="precio">Precio</label>
         <input
@@ -107,7 +103,7 @@
         <Select
             options={$categorias}
             labelField="nombre"
-            on:select={handleSelect}
+            on:select = {handleSelect}
             multiple={false}
         />
 

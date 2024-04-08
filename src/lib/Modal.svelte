@@ -28,6 +28,7 @@
 <style>
     dialog {
         min-width: 30vw;
+        min-height: 60vh;
         max-width: 50vw;
         border-radius: 0.5rem;
         overflow: hidden;

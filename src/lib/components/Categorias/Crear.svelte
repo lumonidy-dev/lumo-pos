@@ -23,6 +23,8 @@
         tipos = ids;
     }
 
+    $: console.log(tipos);
+
     async function handleSubmit() {
         isLoading = true;
         const categoria = {
@@ -35,7 +37,6 @@
             tipos: tipos.length > 0 ? tipos : [""],
         };
 
-        console.log(categoria);
 
         try {
             await createCategoria(categoria);

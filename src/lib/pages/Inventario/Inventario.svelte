@@ -26,7 +26,6 @@
     let selectedProduct = {
         id: "",
         nombre: "",
-        desc: "",
         precio: "",
         ingredientes: [],
         categoria: { id: "", nombre: "" },

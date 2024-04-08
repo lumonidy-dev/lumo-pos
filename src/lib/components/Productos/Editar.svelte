@@ -28,8 +28,14 @@
         const selectedOptions = event.detail;
         const categoria = selectedOptions[0];
         // si categoria tiene la key id, asignarla a producto.categoria
-        if (categoria.id) {
+        if (categoria && categoria.id) {
             producto.categoria = categoria;
+        } else if (categoria === undefined) {
+            producto.categoria = 
+                {
+                    id: "UfsOblViwVNpqB1ycVJG",
+                    nombre: "Sin categoría"
+                }
         }
     }
 
