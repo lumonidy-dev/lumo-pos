@@ -7,6 +7,12 @@
     color: white;
 }
 
+.bg-1 {
+    background-color: #e9b94188;
+    color: #2f2929;
+
+}
+
 
 .glass-secondary {
     background: linear-gradient(209.36deg,
@@ -143,6 +149,16 @@
 
 .gap-6 {
     gap: 6rem;
+}
+
+.h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 
@@ -690,35 +706,35 @@
 }
 
 .pt-xl {
-    padding-top: 6rem;
-}
-
-.pt-3xl {
-    padding-top: 8rem;
-}
-
-.pt-2xl {
     padding-top: 7rem;
 }
 
-.pt-lg {
+.pt-3xl {
+    padding-top: 6rem;
+}
+
+.pt-2xl {
     padding-top: 5rem;
 }
 
-.pt-md {
+.pt-lg {
     padding-top: 4rem;
 }
 
-.pt {
+.pt-md {
     padding-top: 3rem;
 }
 
-.pt-sm {
+.pt {
     padding-top: 2rem;
 }
 
-.pt-xs {
+.pt-sm {
     padding-top: 1rem;
+}
+
+.pt-xs {
+    padding-top: 0.1rem;
 }
 
 .border-bottom {
@@ -733,6 +749,12 @@
 .border-right {
     border-right: 1px solid #e0e0e070;
 }
+
+.border-top {
+    border-top: 1px solid #453c3c70;
+    padding-top: 1rem;
+}
+
 
 
 
@@ -946,4 +968,36 @@
 
 .mr-3 {
     margin-right: 3rem;
+}
+
+.mt-1 {
+    margin-top: 1rem;
+}
+
+.mt-2 {
+    margin-top: 2rem;
+}
+
+.mt-3 {
+    margin-top: 3rem;
+}
+
+.mt-4 {
+    margin-top: 4rem;
+}
+
+.mb-1 {
+    margin-bottom: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 2rem;
+}
+
+.mb-3 {
+    margin-bottom: 3rem;
+}
+
+.mb-4 {
+    margin-bottom: 4rem;
 }

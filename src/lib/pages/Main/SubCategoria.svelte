@@ -4,7 +4,7 @@
     import { derived } from "svelte/store";
     import ListItem from "./ListItem.svelte";
     import { Bebidas, Extras } from "./data.js";
-    import { selecciones, carrito } from "./store.js";
+    import { selecciones, carrito } from "../../store.js";
 
     export let categoriaSeleccionada;
     export let handleClickRegresar;

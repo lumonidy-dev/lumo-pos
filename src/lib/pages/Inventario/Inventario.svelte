@@ -1,70 +1,176 @@
-<!-- Categorias.svelte -->
 <script>
+    import { categorias, productos } from "../../store";
+    import { fetchCategorias, fetchProductos } from "../../api";
     import { onMount } from "svelte";
 
-    import Categoria from "../Main/Categoria.svelte";
-    import SubCategoria from "../Main/SubCategoria.svelte";
-    import { selecciones } from "../Main/store";
-    import { CategoriasData } from "../Main/data";
+    import Loading from "../../Loading.svelte";
+    import Modal from "../../Modal.svelte";
 
-    export let categorias = null;
-    export let multiplicador = 1;
+    import List from "../../components/List.svelte";
+    import Grid from "../../components/Grid.svelte";
 
-    // Estado para manejar si se está mostrando una categoría o no
-    let mostrarTipos = false;
-    let categoriaSeleccionada = {};
+    import CrearCategoria from "../../components/Categorias/Crear.svelte";
+    import EditarCategoria from "../../components/Categorias/Editar.svelte";
 
-    // Inicialización de categoríasRenderizados usando la montura
-    let categoriasRenderizados = [];
+    import CrearProducto from "../../components/Productos/Crear.svelte";
+    import EditarProducto from "../../components/Productos/Editar.svelte";
 
-    // Estado para manejar la selección de productos
-    let seleccion = selecciones;
+    let selectedCategoria = {
+        id: "",
+        nombre: "",
+        desc: "",
+        url: "",
+        tipos: [],
+    };
 
-    // Lógica para manejar el clic en una categoría
-    function handleClickCategoria(categoria) {
-        mostrarTipos = true;
-        categoriaSeleccionada = categoria;
-    }
+    let selectedProduct = {
+        id: "",
+        nombre: "",
+        desc: "",
+        precio: "",
+        ingredientes: [],
+        categoria: { id: "", nombre: "" },
+    };
 
-    // Función para manejar el regreso a las categorías
-    function handleClickRegresar() {
-        // limpiar la selección
-        seleccion.set([]);
-        mostrarTipos = false;
-    }
+    let loadedCategories = false;
+    let loadedProducts = false;
 
-    // Lógica para inicializar el componente y derivar datos computados
-    onMount(() => {
-        // Inicializar categoríasRenderizados
-        if (categorias !== null) {
-            categoriasRenderizados = categorias;
-        } else {
-            categoriasRenderizados = Array.from(
-                { length: multiplicador },
-                () => ({}),
-            );
+    let showModalCrearCategoria = false;
+    let showModalEditarCateoria = false;
+
+    let showModalCrearProducto = false;
+    let showModalEditarProducto = false;
+
+    async function fetchData() {
+        if (!loadedCategories) {
+            await fetchCategorias();
+            loadedCategories = true;
         }
+
+        if (!loadedProducts) {
+            await fetchProductos();
+            loadedProducts = true;
+        }
+    }
+
+    const handleClickCategoria = (categoria) => {
+        selectedCategoria = categoria;
+        showModalEditarCateoria = true;
+    };
+
+    const handleClickProducto = (producto) => {
+        selectedProduct = producto;
+        showModalEditarProducto = true;
+    };
+
+    onMount(() => {
+        fetchData();
     });
+
+    function handleUpdate() {
+        loadedCategories = false;
+        loadedProducts = false;
+        fetchData();
+        showModalCrearCategoria = false;
+        showModalEditarCateoria = false;
+        showModalCrearProducto = false;
+        showModalEditarProducto = false;
+    }
+
+    function handleCrearCategoria() {
+        showModalCrearCategoria = true;
+    }
+
+    function handleCloseModalCrear() {
+        showModalCrearCategoria = false;
+    }
+
+    function handleCloseModalEditar() {
+        showModalEditarCateoria = false;
+    }
+
+    function handleCrearProducto() {
+        showModalCrearProducto = true;
+    }
+
+    function handleCloseModalCrearProducto() {
+        showModalCrearProducto = false;
+    }
 </script>
 
-<div class="glass-secondary br-20 vw-50 vh-80 overflow-h">
-    {#if mostrarTipos}
-        <!-- Mostrar tipos si se seleccionó una categoría -->
-        <SubCategoria {categoriaSeleccionada} {handleClickRegresar} />
-    {:else}
-        <div class="grid-respo-xs px-2 py-1 overflow h-90">
-            <!-- Mostrar las categorías -->
-            {#each categoriasRenderizados as categoria, index}
-                {#if Object.keys(categoria).length > 0}
-                    <Categoria {categoria} handleClick={handleClickCategoria} />
-                {:else}
-                    <Categoria />
-                {/if}
-            {/each}
+<div class="glass-secondary br-20 vw-90 vh-80 overflow-h d-flex flex-row">
+    {#if loadedCategories && loadedProducts}
+        <!-- <Categorias> -->
+        <div class="w-50 border d-flex flex-col">
+            <h2>Categorias</h2>
+            <div class="d-flex just-sa">
+                <button class="create" on:click={handleCrearCategoria}>
+                    Crear Categoría
+                </button>
+            </div>
+            <Grid items={$categorias} handleClick={handleClickCategoria} />
         </div>
+        <Modal
+            bind:showModal={showModalCrearCategoria}
+            on:close={handleCloseModalCrear}
+        >
+            <h2 slot="header">Crear Categoría</h2>
+            <CrearCategoria on:update={handleUpdate} />
+        </Modal>
+        <Modal
+            bind:showModal={showModalEditarCateoria}
+            on:close={handleCloseModalEditar}
+        >
+            <h2 slot="header">Editar Categoría</h2>
+            <EditarCategoria
+                categoria={selectedCategoria}
+                on:update={handleUpdate}
+            />
+        </Modal>
+        <!-- </Categorias> -->
+
+        <!-- <Productos> -->
+        <div class="w-50 border d-flex flex-col">
+            <h2>Productos</h2>
+            <div class="d-flex just-sa">
+                <button class="create" on:click={handleCrearProducto}>
+                    Crear Producto
+                </button>
+            </div>
+            <List items={$productos} handleClick={handleClickProducto} />
+            <Modal
+                bind:showModal={showModalCrearProducto}
+                on:close={handleCloseModalCrearProducto}
+            >
+                <h2 slot="header">Crear Producto</h2>
+                <CrearProducto on:update={handleUpdate} />
+            </Modal>
+            <Modal
+                bind:showModal={showModalEditarProducto}
+                on:close={handleCloseModalEditar}
+            >
+                <h2 slot="header">Editar Producto</h2>
+                <EditarProducto
+                    producto={selectedProduct}
+                    on:update={handleUpdate}
+                />
+            </Modal>
+        </div>
+    {:else}
+        <Loading />
     {/if}
 </div>
 
-<style lang="scss">
-    @import "src/mixins.scss";
+<style>
+    button.create {
+        font-family: "Roboto", sans-serif;
+        border: none;
+        cursor: pointer;
+    }
+
+    button.create {
+        border-radius: 5px;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+    }
 </style>

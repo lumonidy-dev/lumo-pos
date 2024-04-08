@@ -5,7 +5,7 @@
     import Categoria from "./Categoria.svelte";
     import SubCategoria from "./SubCategoria.svelte";
 
-    import { selecciones } from "./store.js";
+    import { selecciones } from "../../store";
 
     export let categorias = null;
     export let multiplicador = 1;

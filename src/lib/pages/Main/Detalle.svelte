@@ -2,13 +2,13 @@
   import FaEdit from "svelte-icons/fa/FaEdit.svelte";
   import FaTrash from "svelte-icons/fa/FaTrash.svelte";
   import { formatearPrecio } from "../../utils.js";
-  import { carrito } from "./store.js";
+  import { carrito } from "../../store.js";
 
   let total = 0;
   // Calcula el total de manera reactiva
   $: total = $carrito.reduce(
     (acc, item) => acc + item.tipo.precio * item.cantidad,
-    0
+    0,
   );
 
   function editarPedido(pedido) {
